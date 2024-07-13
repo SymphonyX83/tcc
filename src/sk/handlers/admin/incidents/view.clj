@@ -1,12 +1,13 @@
 (ns sk.handlers.admin.incidents.view
   (:require [ring.util.anti-forgery :refer [anti-forgery-field]]
             [sk.models.form :refer [form build-hidden-field build-field build-select build-radio build-modal-buttons build-textarea]]
+            [sk.handlers.admin.incidents.model :refer [rgroup-options]]
             [sk.models.grid :refer [build-grid build-modal modal-script]]))
 
 (defn incidents-view
   [title rows]
-  (let [labels ["STATUS" "TITLE" "SEVERITY" "RGROUP_ID" "SOURCE_ID" "COORD_ID_1" "COORD_ID_2" "COORD_ID_3"]
-        db-fields [:status :title :severity :rgroup_id :source_id :coord_id_1 :coord_id_2 :coord_id_3]
+  (let [labels ["STATUS" "TITLE" "TIER" "SEVERITY" "GROUP" "SOURCE" "COORDINATORS"]
+        db-fields [:status_formatted :title :tier :severity_formatted :rgroup_id_formatted :source_id_formatted :coord_id_1_formatted]
         fields (zipmap db-fields labels)
         table-id "incidents_table"
         args {:new true :edit true :delete true}
@@ -19,41 +20,56 @@
    (build-hidden-field {:id "id"
                         :name "id"
                         :value (:id row)})
-   (build-field {:label "STATUS"
-                 :type "text"
-                 :id "status"
-                 :name "status"
-                 :placeholder "status aqui..."
-                 :required false
-                 :value (:status row)})
+   (build-select {:label "STATUS"
+                  :id "status"
+                  :name "status"
+                  :required false
+                  :value (:status row)
+                  :error "Status field is required..."
+                  :options [{:value ""
+                             :label "Select incident status..."}
+                            {:value "O"
+                             :label "Open"}
+                            {:value "C"
+                             :label "Closed"}]})
    (build-field {:label "TITLE"
                  :type "text"
                  :id "title"
                  :name "title"
-                 :placeholder "title aqui..."
-                 :required false
+                 :placeholder "Incident short description..."
+                 :required true
                  :value (:title row)})
    (build-field {:label "INC_NUMBER"
                  :type "text"
                  :id "inc_number"
                  :name "inc_number"
-                 :placeholder "inc_number aqui..."
-                 :required false
+                 :placeholder "INC here..."
+                 :required true
                  :value (:inc_number row)})
-   (build-field {:label "TIER"
-                 :type "text"
-                 :id "tier"
+   (build-radio {:label "TIER"
                  :name "tier"
-                 :placeholder "tier aqui..."
-                 :required false
-                 :value (:tier row)})
-   (build-field {:label "SEVERITY"
-                 :type "text"
-                 :id "severity"
+                 :value (:tier row)
+                 :options [{:id "active1"
+                            :label "1"
+                            :value 1}
+                           {:id "active2"
+                            :label "2"
+                            :value 2}
+                           {:id "active3"
+                            :label "3"
+                            :value 3}]})
+   (build-radio {:label "SEVERITY"
                  :name "severity"
-                 :placeholder "severity aqui..."
-                 :required false
-                 :value (:severity row)})
+                 :value (:severity row)
+                 :options [{:id "active1"
+                            :label "1=Critical"
+                            :value 1}
+                           {:id "active2"
+                            :label "2=High"
+                            :value 2}
+                           {:id "active3"
+                            :label "3=Moderate"
+                            :value 3}]})
    (build-field {:label "ENVIRONMENT"
                  :type "text"
                  :id "environment"
@@ -61,13 +77,13 @@
                  :placeholder "environment aqui..."
                  :required false
                  :value (:environment row)})
-   (build-field {:label "RGROUP_ID"
-                 :type "text"
-                 :id "rgroup_id"
-                 :name "rgroup_id"
-                 :placeholder "rgroup_id aqui..."
-                 :required false
-                 :value (:rgroup_id row)})
+   (build-select {:label "GROUP"
+                  :id "rgroup_id"
+                  :name "rgroup_id"
+                  :required false
+                  :value (:rgroup_id row)
+                  :error "This field is required..."
+                  :options (rgroup-options)})
    (build-field {:label "SOURCE_ID"
                  :type "text"
                  :id "source_id"
