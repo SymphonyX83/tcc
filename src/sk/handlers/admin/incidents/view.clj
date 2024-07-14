@@ -1,7 +1,7 @@
 (ns sk.handlers.admin.incidents.view
   (:require [ring.util.anti-forgery :refer [anti-forgery-field]]
             [sk.models.form :refer [form build-hidden-field build-field build-select build-radio build-modal-buttons build-textarea]]
-            [sk.handlers.admin.incidents.model :refer [rgroup-options]]
+            [sk.handlers.admin.incidents.model :refer [rgroup-options coord-options source-options]]
             [sk.models.grid :refer [build-grid build-modal modal-script]]))
 
 (defn incidents-view
@@ -77,41 +77,46 @@
                  :placeholder "environment aqui..."
                  :required false
                  :value (:environment row)})
-   (build-select {:label "GROUP"
+   (build-select {:label "RESOLUTION GROUP"
                   :id "rgroup_id"
                   :name "rgroup_id"
                   :required false
                   :value (:rgroup_id row)
                   :error "This field is required..."
                   :options (rgroup-options)})
-   (build-field {:label "SOURCE_ID"
-                 :type "text"
-                 :id "source_id"
-                 :name "source_id"
-                 :placeholder "source_id aqui..."
-                 :required false
-                 :value (:source_id row)})
+   (build-select {:label "SOURCE OF INCIDENT"
+                  :id "source_id"
+                  :name "source_id"
+                  :required false
+                  :value (:source_id row)
+                  :error "Source field is required..."
+                  :options (source-options)})
    (build-textarea {:label "SUMMARY"
                     :id "summary"
                     :name "summary"
-                    :rows "3"
+                    :rows "4"
                     :placeholder "summary aqui..."
                     :required false
                     :value (:summary row)})
-   (build-textarea {:label "CURRENT_STATUS"
+   (build-textarea {:label "CURRENT STATUS"
                     :id "current_status"
                     :name "current_status"
-                    :rows "3"
+                    :rows "6"
                     :placeholder "current_status aqui..."
                     :required false
                     :value (:current_status row)})
-   (build-field {:label "POTENTIAL_ESCALATION"
-                 :type "text"
-                 :id "potential_escalation"
+   (build-radio {:label "POTENTIAL ESCALATION"
                  :name "potential_escalation"
-                 :placeholder "potential_escalation aqui..."
-                 :required false
-                 :value (:potential_escalation row)})
+                 :value (:potential_escalation row)
+                 :options [{:id "activeL"
+                            :label "Low"
+                            :value "L"}
+                           {:id "activeM"
+                            :label "Medium"
+                            :value "M"}
+                           {:id "activeH"
+                            :label "High"
+                            :value "H"}]})
    (build-textarea {:label "BRIDGE_DETAILS"
                     :id "bridge_details"
                     :name "bridge_details"
@@ -119,41 +124,38 @@
                     :placeholder "bridge_details aqui..."
                     :required false
                     :value (:bridge_details row)})
-   (build-field {:label "START_TIME"
-                 :type "text"
+   (build-field {:label "START TIME"
+                 :type "date"
                  :id "start_time"
                  :name "start_time"
                  :placeholder "start_time aqui..."
                  :required false
                  :value (:start_time row)})
-   (build-field {:label "END_TIME"
-                 :type "text"
+   (build-field {:label "END TIME"
+                 :type "date"
                  :id "end_time"
                  :name "end_time"
                  :placeholder "end_time aqui..."
                  :required false
                  :value (:end_time row)})
-   (build-field {:label "COORD_ID_1"
-                 :type "text"
-                 :id "coord_id_1"
-                 :name "coord_id_1"
-                 :placeholder "coord_id_1 aqui..."
-                 :required false
-                 :value (:coord_id_1 row)})
-   (build-field {:label "COORD_ID_2"
-                 :type "text"
-                 :id "coord_id_2"
-                 :name "coord_id_2"
-                 :placeholder "coord_id_2 aqui..."
-                 :required false
-                 :value (:coord_id_2 row)})
-   (build-field {:label "COORD_ID_3"
-                 :type "text"
-                 :id "coord_id_3"
-                 :name "coord_id_3"
-                 :placeholder "coord_id_3 aqui..."
-                 :required false
-                 :value (:coord_id_3 row)})
+   (build-select {:label "COORDINATOR 1"
+                  :id "coord_id_1"
+                  :name "coord_id_1"
+                  :required true
+                  :value (:coord_id_1 row)
+                  :options (coord-options)})
+   (build-select {:label "COORDINATOR_2"
+                  :id "coord_id_2"
+                  :name "coord_id_2"
+                  :required false
+                  :value (:coord_id_2 row)
+                  :options (coord-options)})
+   (build-select {:label "COORDINATOR_3"
+                  :id "coord_id_3"
+                  :name "coord_id_3"
+                  :required false
+                  :value (:coord_id_3 row)
+                  :options (coord-options)})
    (build-field {:label "TOTAL_OUTAGE"
                  :type "text"
                  :id "total_outage"

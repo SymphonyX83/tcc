@@ -53,5 +53,28 @@ WHERE id = ?
     (list* {:value ""
             :label "Select a resolution group..."} options)))
 
+(defn source-options
+  []
+  (let [rows (Query db "SELECT *, name AS name_formatted
+                        FROM sources
+                        ORDER BY name ")
+        options (map (fn [row]
+                       {:value (:id row)
+                        :label (:name_formatted row)}) rows)]
+    (list* {:value ""
+            :label "Select a source for this incident..."} options)))
+
+(defn coord-options
+  []
+  (let [rows (Query db "SELECT *, 
+                       CONCAT(name,' ',firstname) AS name_formatted
+                        FROM employees
+                        ORDER BY firstname ")
+        options (map (fn [row]
+                       {:value (:id row)
+                        :label (:name_formatted row)}) rows)]
+    (list* {:value ""
+            :label "Select a coordinator..."} options)))
+
 (comment
   (get-incidents))
