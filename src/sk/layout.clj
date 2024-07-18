@@ -16,8 +16,9 @@
       [:li [:a.dropdown-item {:href "/admin/rgroups"} "Resolution Groups"]]
       [:li [:a.dropdown-item {:href "/admin/employees"} "Employees"]]
       [:li [:a.dropdown-item {:href "/admin/incidents"} "Incidents"]]
+      [:li [:a.dropdown-item {:href "/admin/oncall"} "Oncall"]]
       (when (= (user-level) "S")
-        [:li [:a.dropdown-item {:href "/admin/users"} "Usuarios"]])))))
+        [:li [:a.dropdown-item {:href "/admin/users"} "Users"]])))))
 
 (defn menus-private []
   (list
@@ -32,7 +33,7 @@
      [:span.navbar-toggler-icon]]
     [:div#collapsibleNavbar.collapse.navbar-collapse
      [:ul.navbar-nav
-      [:li.nav-item [:a.nav-link {:href "/users"} "Dashboard"]]
+      [:li.nav-item [:a.nav-link {:href "/oncall"} "Oncall Schedule"]]
       (when
        (or
         (= (user-level) "U")
@@ -41,10 +42,10 @@
         [:li.nav-item.dropdown
          [:a.nav-link.dropdown-toggle {:href "#"
                                        :id "navdrop"
-                                       :data-bs-toggle "dropdown"} "Administrar"]
+                                       :data-bs-toggle "dropdown"} "Administer"]
          [:ul.dropdown-menu {:aria-labelledby "navdrop"}
           (build-admin)]])
-      [:li.nav-item [:a.nav-link {:href "/home/logoff"} (str "Salir [" (user-name) "]")]]]]]))
+      [:li.nav-item [:a.nav-link {:href "/home/logoff"} (str "Sign out [" (user-name) "]")]]]]]))
 
 (defn menus-public []
   (list
@@ -62,7 +63,7 @@
     [:div#collapsibleNavbar.navbar-collapse
      [:ul.navbar-nav.me-auto.mb-2.mb-lg-0
       [:li.nav-item [:a.nav-link {:href "/home/login"
-                                  :aria-current "page"} "Entrar al sitio"]]]]]))
+                                  :aria-current "page"} "Login"]]]]]))
 
 (defn menus-none []
   (list
@@ -136,7 +137,7 @@
            [:div {:style "padding-left:14px;"}
             [:div
              [:p [:h3 [:b "Mensaje: "]] [:h3 content]]
-             [:p [:h3 [:a {:href return-url} "Clic aqui para " [:strong "Continuar"]]]]]]]
+             [:p [:h3 [:a {:href return-url} "Click to " [:strong "Continue"]]]]]]]
 
           (app-js)
           nil]

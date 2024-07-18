@@ -6,7 +6,8 @@
             [sk.handlers.admin.rgroups.controller :as rgroups-controller]
             [sk.handlers.admin.employees.controller :as employees-controller]
             [sk.handlers.admin.incidents.controller :as incidents-controller]
-            [sk.handlers.users.controller :as users-dashboard]))
+            [sk.handlers.admin.oncall.controller :as oncall-controller]
+            [sk.handlers.oncall.controller :as oncall-dashboard]))
 
 (defroutes proutes
   (GET "/admin/users" params users-controller/users)
@@ -45,4 +46,10 @@
   (GET "/admin/incidents/add" params [] (incidents-controller/incidents-add params))
   (GET "/admin/incidents/delete/:id" [id] (incidents-controller/incidents-delete id))
 
-  (GET "/users" params [] (users-dashboard/users params)))
+  (GET "/admin/oncall" params oncall-controller/oncall)
+  (GET "/admin/oncall/edit/:id" [id] (oncall-controller/oncall-edit id))
+  (POST "/admin/oncall/save" params [] (oncall-controller/oncall-save params))
+  (GET "/admin/oncall/add" params [] (oncall-controller/oncall-add params))
+  (GET "/admin/oncall/delete/:id" [id] (oncall-controller/oncall-delete id))
+
+  (GET "/oncall" params [] (oncall-dashboard/oncall params)))
