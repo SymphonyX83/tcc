@@ -18,7 +18,7 @@
       [:li [:a.dropdown-item {:href "/admin/incidents"} "Incidents"]]
       [:li [:a.dropdown-item {:href "/admin/oncall"} "Oncall"]]
       (when (= (user-level) "S")
-        [:li [:a.dropdown-item {:href "/admin/users"} "Users"]])))))
+        [:li [:a.dropdown-item {:href "/admin/users"} "Usuarios"]])))))
 
 (defn menus-private []
   (list
@@ -42,10 +42,10 @@
         [:li.nav-item.dropdown
          [:a.nav-link.dropdown-toggle {:href "#"
                                        :id "navdrop"
-                                       :data-bs-toggle "dropdown"} "Administer"]
+                                       :data-bs-toggle "dropdown"} "Administrar"]
          [:ul.dropdown-menu {:aria-labelledby "navdrop"}
           (build-admin)]])
-      [:li.nav-item [:a.nav-link {:href "/home/logoff"} (str "Sign out [" (user-name) "]")]]]]]))
+      [:li.nav-item [:a.nav-link {:href "/home/logoff"} (str "Salir [" (user-name) "]")]]]]]))
 
 (defn menus-public []
   (list
@@ -63,7 +63,7 @@
     [:div#collapsibleNavbar.navbar-collapse
      [:ul.navbar-nav.me-auto.mb-2.mb-lg-0
       [:li.nav-item [:a.nav-link {:href "/home/login"
-                                  :aria-current "page"} "Login"]]]]]))
+                                  :aria-current "page"} "Entrar al sitio"]]]]]))
 
 (defn menus-none []
   (list
@@ -116,9 +116,9 @@
              (> ok 0) (menus-private))
            [:div {:style "padding-left:14px;"} content]]
           (app-js)
-          js]
+          js
          [:footer.bg-light.text-center.fixed-bottom
-          [:span  "Copyright &copy" (t/year (t/now)) " " (:company-name config) " - All Rights Reserved"]]))
+          [:span  "Copyright &copy;" (t/year (t/now)) " " (:company-name config) " - All Rights Reserved"]]]))
 
 (defn error-404 [content return-url]
   (html5 {:ng-app (:site-name config) :lang "es"}
@@ -137,9 +137,9 @@
            [:div {:style "padding-left:14px;"}
             [:div
              [:p [:h3 [:b "Mensaje: "]] [:h3 content]]
-             [:p [:h3 [:a {:href return-url} "Click to " [:strong "Continue"]]]]]]]
+             [:p [:h3 [:a {:href return-url} "Clic aqui para " [:strong "Continuar"]]]]]]]
 
           (app-js)
-          nil]
-         [:footer.bg-secondary.text-center.fixed-bottom
-          [:span  "Copyright &copy" (t/year (t/now)) " " (:company-name config) " - All Rights Reserved"]]))
+          nil
+         [:footer.bg-light.text-center.fixed-bottom
+          [:span  "Copyright &copy;" (t/year (t/now)) " " (:company-name config) " - All Rights Reserved"]]]))

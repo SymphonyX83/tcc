@@ -6,7 +6,6 @@
             [ring.adapter.jetty :as jetty]
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [ring.middleware.multipart-params :refer [wrap-multipart-params]]
-            [ring.middleware.reload :as reload]
             [ring.middleware.session :refer [wrap-session]]
             [ring.middleware.session.cookie :refer [cookie-store]]
             [sk.migrations :refer [config]]
@@ -29,11 +28,19 @@
       (catch Exception _
         {:status 400 :body "Invalid data"}))))
 
+(defn wrap-public-routes [open-routes]
+  (fn [pub-routes]
+    (open-routes pub-routes)))
+
+(defn wrap-private-routes [proutes]
+  (fn [priv-routes]
+    (proutes priv-routes)))
+
 (defroutes app-routes
   (route/resources "/")
   (route/files (:path config) {:root (:uploads config)})
-  open-routes
-  (wrap-login proutes)
+  (wrap-public-routes open-routes)
+  (wrap-login (wrap-private-routes proutes))
   (route/not-found "Not Found"))
 
 (def app
@@ -50,7 +57,7 @@
 
 (defn -main
   []
-  (jetty/run-jetty (reload/wrap-reload #'app) {:port (:port config)}))
+  (jetty/run-jetty app {:port (:port config)}))
 
 (comment
   (:port config))
