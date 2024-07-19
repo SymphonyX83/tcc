@@ -12,8 +12,6 @@ CREATE TABLE incidents (
   current_status text default null,
   potential_escalation char(1) comment "L=Low, M=Medium, H=High",
   bridge_details text default null,
-  sdate date,
-  edate date,
   start_time time,
   end_time time,
   coord_id_1 int unsigned default 0 COMMENT "Incident Coordinator 1",
