@@ -1,11 +1,13 @@
 (ns sk.handlers.admin.incidents.model
   (:require [sk.models.crud :refer [Query db]]
+            [clj-time [core :as t]]
             [clojure.string :as st]))
 
 (def get-incidents-sql
   (str
    "
 SELECT  i.*,
+        TIMESTAMPDIFF(SECOND,i.start_time,i.end_time) AS seconds,
         rg.name AS rgroup_id_formatted, 
         CONCAT(e1.name,' ',e1.firstname,'/',e2.name,' ',e2.firstname,'/',e3.name,' ',e3.firstname) AS coord_id_1_formatted,
         src.name AS source_id_formatted,
@@ -26,21 +28,44 @@ JOIN employees AS e2 ON i.coord_id_2=e2.id
 JOIN employees AS e3 ON i.coord_id_3=e3.id
 "))
 
+(defn outage->string [seconds]
+  (let [n seconds
+        day (int (/ n (* 24 3600)))
+
+        n (mod n (* 24 3600))
+        hour (int (/ n 3600))
+
+        n (mod n 3600)
+        minutes (int (/ n 60))
+
+        n (mod n 60)
+        seconds (int n)]
+    (str day " days " hour " hours " minutes " minutes ")))
+
 (defn get-incidents
   []
-  (Query db get-incidents-sql))
+  (let [rows (Query db get-incidents-sql)
+        trows (map (fn [row]
+                     (let [time-display (outage->string (:seconds row))
+                           row (assoc row :total_outage time-display)]
+                       row)) rows)]
+    trows))
 
 (def get-incidents-id-sql
   (str
    "
-SELECT *
-FROM incidents
-WHERE id = ?
-"))
+    SELECT *,
+    TIMESTAMPDIFF(SECOND,start_time,end_time) AS seconds
+    FROM incidents
+    WHERE id = ?
+    "))
 
 (defn get-incidents-id
   [id]
-  (first (Query db [get-incidents-id-sql id])))
+  (let [row (first (Query db [get-incidents-id-sql id]))
+        time-display (outage->string (:seconds row))
+        row (assoc row :total_outage time-display)]
+    row))
 
 (defn rgroup-options
   []

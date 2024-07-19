@@ -6,8 +6,8 @@
 
 (defn incidents-view
   [title rows]
-  (let [labels ["STATUS" "TITLE" "TIER" "SEVERITY" "GROUP" "SOURCE" "COORDINATORS"]
-        db-fields [:status_formatted :title :tier :severity_formatted :rgroup_id_formatted :source_id_formatted :coord_id_1_formatted]
+  (let [labels ["STATUS" "TITLE" "TIER" "SEVERITY" "GROUP" "SOURCE" "COORDINATORS" "OUTAGE"]
+        db-fields [:status_formatted :title :tier :severity_formatted :rgroup_id_formatted :source_id_formatted :coord_id_1_formatted :total_outage]
         fields (zipmap db-fields labels)
         table-id "incidents_table"
         args {:new true :edit true :delete true}
@@ -51,25 +51,25 @@
                  :value (:tier row)
                  :options [{:id "active1"
                             :label "1"
-                            :value 1}
+                            :value "1"}
                            {:id "active2"
                             :label "2"
-                            :value 2}
+                            :value "2"}
                            {:id "active3"
                             :label "3"
-                            :value 3}]})
+                            :value "3"}]})
    (build-radio {:label "SEVERITY"
                  :name "severity"
                  :value (:severity row)
                  :options [{:id "active1"
                             :label "1=Critical"
-                            :value 1}
+                            :value "1"}
                            {:id "active2"
                             :label "2=High"
-                            :value 2}
+                            :value "2"}
                            {:id "active3"
                             :label "3=Moderate"
-                            :value 3}]})
+                            :value "3"}]})
    (build-field {:label "ENVIRONMENT"
                  :type "text"
                  :id "environment"
@@ -125,14 +125,14 @@
                     :required false
                     :value (:bridge_details row)})
    (build-field {:label "START TIME"
-                 :type "date"
+                 :type "datetime-local"
                  :id "start_time"
                  :name "start_time"
                  :placeholder "start_time aqui..."
                  :required false
                  :value (:start_time row)})
    (build-field {:label "END TIME"
-                 :type "date"
+                 :type "datetime-local"
                  :id "end_time"
                  :name "end_time"
                  :placeholder "end_time aqui..."
@@ -160,7 +160,7 @@
                  :type "text"
                  :id "total_outage"
                  :name "total_outage"
-                 :placeholder "total_outage aqui..."
+                 :readonly true
                  :required false
                  :value (:total_outage row)})))
 
