@@ -12,10 +12,12 @@ CREATE TABLE incidents (
   current_status text default null,
   potential_escalation char(1) comment "L=Low, M=Medium, H=High",
   bridge_details text default null,
-  start_time timestamp default null,
-  end_time timestamp default null,
+  sdate date,
+  edate date,
+  start_time time,
+  end_time time,
   coord_id_1 int unsigned default 0 COMMENT "Incident Coordinator 1",
   coord_id_2 int unsigned default 0 COMMENT "Incident Coordinator 2",
   coord_id_3 int unsigned default 0 COMMENT "Incident Coordinator 3",
-  total_outage timestamp default null 
+  total_outage varchar(255)
 ) engine=innodb default charset=utf8;
