@@ -1,5 +1,6 @@
 (ns sk.handlers.admin.incidents.model
   (:require [sk.models.crud :refer [Query db]]
+            [sk.models.util :refer [seconds->string]]
             [clj-time [core :as t]]
             [clojure.string :as st]))
 
@@ -28,25 +29,11 @@ JOIN employees AS e2 ON i.coord_id_2=e2.id
 JOIN employees AS e3 ON i.coord_id_3=e3.id
 "))
 
-(defn outage->string [seconds]
-  (let [n seconds
-        day (int (/ n (* 24 3600)))
-
-        n (mod n (* 24 3600))
-        hour (int (/ n 3600))
-
-        n (mod n 3600)
-        minutes (int (/ n 60))
-
-        n (mod n 60)
-        seconds (int n)]
-    (str day " days " hour " hours " minutes " minutes ")))
-
 (defn get-incidents
   []
   (let [rows (Query db get-incidents-sql)
         trows (map (fn [row]
-                     (let [time-display (outage->string (:seconds row))
+                     (let [time-display (seconds->string (:seconds row))
                            row (assoc row :total_outage time-display)]
                        row)) rows)]
     trows))
@@ -63,7 +50,7 @@ JOIN employees AS e3 ON i.coord_id_3=e3.id
 (defn get-incidents-id
   [id]
   (let [row (first (Query db [get-incidents-id-sql id]))
-        time-display (outage->string (:seconds row))
+        time-display (seconds->string (:seconds row))
         row (assoc row :total_outage time-display)]
     row))
 
