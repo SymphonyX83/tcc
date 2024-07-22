@@ -40,4 +40,9 @@
 
         n (mod n 60)
         seconds (int n)]
-    (str day " days " hour " hours " minutes " minutes ")))
+    (str day (if (= day 1) " day " " days ")
+         hour (if (= day 1) " hour " " hours ")
+         minutes (if (= day 1) " minute " " minutes "))))
+
+(comment
+  (seconds->string 1020000))
