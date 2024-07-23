@@ -42,10 +42,10 @@
         [:li.nav-item.dropdown
          [:a.nav-link.dropdown-toggle {:href "#"
                                        :id "navdrop"
-                                       :data-bs-toggle "dropdown"} "Administrar"]
+                                       :data-bs-toggle "dropdown"} "Administer"]
          [:ul.dropdown-menu {:aria-labelledby "navdrop"}
           (build-admin)]])
-      [:li.nav-item [:a.nav-link {:href "/home/logoff"} (str "Salir [" (user-name) "]")]]]]]))
+      [:li.nav-item [:a.nav-link {:href "/home/logoff"} (str "Logoff [" (user-name) "]")]]]]]))
 
 (defn menus-public []
   (list
@@ -63,7 +63,7 @@
     [:div#collapsibleNavbar.navbar-collapse
      [:ul.navbar-nav.me-auto.mb-2.mb-lg-0
       [:li.nav-item [:a.nav-link {:href "/home/login"
-                                  :aria-current "page"} "Entrar al sitio"]]]]]))
+                                  :aria-current "page"} "Login to the site"]]]]]))
 
 (defn menus-none []
   (list
@@ -117,13 +117,13 @@
            [:div {:style "padding-left:14px;"} content]]
           (app-js)
           js
-         [:footer.bg-light.text-center.fixed-bottom
-          [:span  "Copyright &copy;" (t/year (t/now)) " " (:company-name config) " - All Rights Reserved"]]]))
+          [:footer.bg-light.text-center.fixed-bottom
+           [:span  "Copyright &copy;" (t/year (t/now)) " " (:company-name config) " - All Rights Reserved"]]]))
 
 (defn error-404 [content return-url]
   (html5 {:ng-app (:site-name config) :lang "es"}
          [:head
-          [:title "Mesaje"]
+          [:title "Message"]
           [:meta {:charset "UTF-8"}]
           [:meta {:name "viewport"
                   :content "width=device-width, initial-scale=1"}]
@@ -137,9 +137,9 @@
            [:div {:style "padding-left:14px;"}
             [:div
              [:p [:h3 [:b "Mensaje: "]] [:h3 content]]
-             [:p [:h3 [:a {:href return-url} "Clic aqui para " [:strong "Continuar"]]]]]]]
+             [:p [:h3 [:a {:href return-url} "Click here to " [:strong "Continue"]]]]]]]
 
           (app-js)
           nil
-         [:footer.bg-light.text-center.fixed-bottom
-          [:span  "Copyright &copy;" (t/year (t/now)) " " (:company-name config) " - All Rights Reserved"]]]))
+          [:footer.bg-light.text-center.fixed-bottom
+           [:span  "Copyright &copy;" (t/year (t/now)) " " (:company-name config) " - All Rights Reserved"]]]))

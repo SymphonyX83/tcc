@@ -178,13 +178,13 @@
 (defn incidents-edit-view
   [title row rows]
   (list
-   (incidents-view "incidents Manteniento" rows)
+   (incidents-view "incidents Maintenance" rows)
    (build-incidents-modal title row)))
 
 (defn incidents-add-view
   [title row rows]
   (list
-   (incidents-view "incidents Mantenimiento" rows)
+   (incidents-view "incidents Maintenance" rows)
    (build-incidents-modal title row)))
 
 (defn incidents-modal-script
