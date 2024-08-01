@@ -125,10 +125,10 @@
      [:div.form-group
       [:label.font-weight-bold {:for (:name args)} (:label args)]
       [:select.form-control.form-select {:id (:id args)
-                             :name (:name args)
-                             :required (:required args)
-                             :oninvalid (str "this.setCustomValidity('" (:error args) "')")
-                             :oninput "this.setCustomValidity('')"}
+                                         :name (:name args)
+                                         :required (:required args)
+                                         :oninvalid (str "this.setCustomValidity('" (:error args) "')")
+                                         :oninput "this.setCustomValidity('')"}
        (map (partial (fn [option]
                        (list
                         [:option {:value (:value option)
@@ -249,6 +249,13 @@
                 :placeholder "El correo electronico aqui!"
                 :required false
                 :value (:correo_electronico row)})
+  (build-field {:label "START TIME"
+                :type "datetime-local"
+                :id "start_time"
+                :name "start_time"
+                :placeholder "start_time aqui..."
+                :required false
+                :value (:start_time row)})
   (build-field {:label "Buscar contacto"
                 :type "search"
                 :id "buscar_contacto"
