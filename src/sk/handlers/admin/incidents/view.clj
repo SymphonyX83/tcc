@@ -7,7 +7,7 @@
 (defn incidents-view
   [title rows]
   (let [labels ["STATUS" "TITLE" "TIER" "SEVERITY" "GROUP" "SOURCE" "COORDINATORS" "OUTAGE"]
-        db-fields [:status_formatted :title :tier :severity_formatted :rgroup_id_formatted :source_id_formatted :coord_id_1_formatted :total_outage]
+        db-fields [:status_formatted :title :tier :severity_formatted :rgroup_id_formatted :source_id_formatted :coord_formatted :total_outage]
         fields (zipmap db-fields labels)
         table-id "incidents_table"
         args {:new true :edit true :delete true}
