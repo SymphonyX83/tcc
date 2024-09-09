@@ -4,7 +4,7 @@
 (defn oncall-view
   [title rows]
   (let [table-id "oncall_table"
-        labels ["GROUP" "MANAGER" "MGR CONTACT" "PRIMARY ONCALL" "PONCALL PHONES" "SECONDARY ONCALL" "SONCALL PHONES" "START" "END"]
-        db-fields [:rgroup_id_formatted :manager_id_formatted :manager_phones :poncall_id_formatted :soncall_phones :soncall_id_formatted :soncall_phones :start_date :end_date]
+        labels ["GROUP" "PRIMARY ONCALL" "PHONES" "SECONDARY ONCALL" "PHONES" "MANAGER" "MGR CONTACT"]
+        db-fields [:rgroup_id_formatted :poncall_id_formatted :poncall_phones :soncall_id_formatted :soncall_phones :manager_id_formatted :manager_phones]
         fields (zipmap db-fields labels)]
     (build-dashboard title rows table-id fields)))
