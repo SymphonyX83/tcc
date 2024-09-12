@@ -29,7 +29,7 @@
     username))
 
 (defn seconds->string [seconds]
-  (let [n seconds
+  (let [n (if (nil? seconds) 0 seconds)
         day (int (/ n (* 24 3600)))
 
         n (mod n (* 24 3600))
@@ -45,4 +45,4 @@
          minutes (if (= minutes 1) " minute " " minutes "))))
 
 (comment
-  (seconds->string 1020000))
+  (seconds->string nil))
