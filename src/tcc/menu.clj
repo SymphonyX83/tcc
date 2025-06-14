@@ -4,7 +4,8 @@
   [["/reports/users" "Users"]])
 
 (def admin-items
-  [["/admin/users" "Users" "S"]]) ; Only system users
+  [["/admin/users" "Users" "S"]
+   ["/admin/employees" "Employees" "S"]]) ; Only system users
 
 (def menu-config
   {:nav-links [["/" "Home"]
