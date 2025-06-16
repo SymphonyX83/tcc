@@ -1,12 +1,18 @@
 (ns tcc.routes.proutes
   (:require
    [compojure.core :refer [defroutes GET POST]]
+   [tcc.handlers.admin.locations.controller :as locations-controller]
    [tcc.handlers.admin.employees.controller :as employees-controller]
    [tcc.handlers.admin.users.controller :as users-controller]
    [tcc.handlers.reports.users.controller :as users-report]
    [tcc.handlers.users.controller :as users-dashboard]))
 
 (defroutes proutes
+  (GET "/admin/locations" params [] (locations-controller/locations params))
+  (GET "/admin/locations/add-form" params [] (locations-controller/locations-add-form params))
+  (GET "/admin/locations/edit-form/:id" [id :as request] (locations-controller/locations-edit-form request id))
+  (POST "/admin/locations/save" params [] (locations-controller/locations-save params))
+  (GET "/admin/locations/delete/:id" [id :as request] (locations-controller/locations-delete request id))
   (GET "/admin/employees" params [] (employees-controller/employees params))
   (GET "/admin/employees/add-form" params [] (employees-controller/employees-add-form params))
   (GET "/admin/employees/edit-form/:id" [id :as request] (employees-controller/employees-edit-form request id))
