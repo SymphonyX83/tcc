@@ -8,7 +8,8 @@
    ["/admin/employees" "Employees" "S"]
    ["/admin/locations" "Locations" "S"]
    ["/admin/rgroups" "Resolution Groups" "S"]
-   ["/admin/detections" "Detection Methods" "S"]]) ; Only system users
+   ["/admin/detections" "Detection Methods" "S"]
+   ["/admin/sources" "Source of Incidents" "S"]]) ; Only system users
 
 (def menu-config
   {:nav-links [["/" "Home"]

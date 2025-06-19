@@ -1,6 +1,7 @@
 (ns tcc.routes.proutes
   (:require
    [compojure.core :refer [defroutes GET POST]]
+   [tcc.handlers.admin.sources.controller :as sources-controller]
    [tcc.handlers.admin.detections.controller :as detections-controller]
    [tcc.handlers.admin.rgroups.controller :as rgroups-controller]
    [tcc.handlers.admin.locations.controller :as locations-controller]
@@ -10,6 +11,11 @@
    [tcc.handlers.users.controller :as users-dashboard]))
 
 (defroutes proutes
+  (GET "/admin/sources" params [] (sources-controller/sources params))
+  (GET "/admin/sources/add-form" params [] (sources-controller/sources-add-form params))
+  (GET "/admin/sources/edit-form/:id" [id :as request] (sources-controller/sources-edit-form request id))
+  (POST "/admin/sources/save" params [] (sources-controller/sources-save params))
+  (GET "/admin/sources/delete/:id" [id :as request] (sources-controller/sources-delete request id))
   (GET "/admin/detections" params [] (detections-controller/detections params))
   (GET "/admin/detections/add-form" params [] (detections-controller/detections-add-form params))
   (GET "/admin/detections/edit-form/:id" [id :as request] (detections-controller/detections-edit-form request id))
