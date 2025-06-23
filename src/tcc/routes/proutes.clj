@@ -1,6 +1,7 @@
 (ns tcc.routes.proutes
   (:require
    [compojure.core :refer [defroutes GET POST]]
+   [tcc.handlers.admin.oncall.controller :as oncall-controller]
    [tcc.handlers.admin.sources.controller :as sources-controller]
    [tcc.handlers.admin.detections.controller :as detections-controller]
    [tcc.handlers.admin.rgroups.controller :as rgroups-controller]
@@ -11,6 +12,16 @@
    [tcc.handlers.users.controller :as users-dashboard]))
 
 (defroutes proutes
+  (GET "/admin/oncall" params [] (oncall-controller/oncall params))
+  (GET "/admin/oncall/add-form" params [] (oncall-controller/oncall-add-form params))
+  (GET "/admin/oncall/edit-form/:id" [id :as request] (oncall-controller/oncall-edit-form request id))
+  (POST "/admin/oncall/save" params [] (oncall-controller/oncall-save params))
+  (GET "/admin/oncall/delete/:id" [id :as request] (oncall-controller/oncall-delete request id))
+  (GET "/admin/oncall" params [] (oncall-controller/oncall params))
+  (GET "/admin/oncall/add-form" params [] (oncall-controller/oncall-add-form params))
+  (GET "/admin/oncall/edit-form/:id" [id :as request] (oncall-controller/oncall-edit-form request id))
+  (POST "/admin/oncall/save" params [] (oncall-controller/oncall-save params))
+  (GET "/admin/oncall/delete/:id" [id :as request] (oncall-controller/oncall-delete request id))
   (GET "/admin/sources" params [] (sources-controller/sources params))
   (GET "/admin/sources/add-form" params [] (sources-controller/sources-add-form params))
   (GET "/admin/sources/edit-form/:id" [id :as request] (sources-controller/sources-edit-form request id))
