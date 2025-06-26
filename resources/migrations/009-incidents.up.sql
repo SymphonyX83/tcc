@@ -1,0 +1,21 @@
+CREATE TABLE incidents (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    status CHAR(1) COMMENT '1=Open, 2=Closed',
+    number CHAR(7),
+    environment VARCHAR(255) COMMENT 'DEV, QA, UAT, PROD',
+    location_id int not null,
+    ci_tier CHAR(1) COMMENT '1,2,3',
+    severity CHAR(1) COMMENT '1,2,3,4',
+    business_impact VARCHAR(255),
+    detection_id INT NOT NULL,
+    summary TEXT,
+    rgroup_id INT NOT NULL,
+    bridge VARCHAR(255),
+    current_status TEXT,
+    source_id INT NOT NULL,
+    start_time DATETIME,
+    end_time DATETIME,
+    coordinator1_id INT NOT NULL,
+    coordinator2_id INT NOT NULL,
+    coordinator3_id INT NOT NULL
+)

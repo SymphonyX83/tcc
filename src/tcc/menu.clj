@@ -14,6 +14,7 @@
 
 (def menu-config
   {:nav-links [["/" "Home"]
+               ["/admin/incidents" "Incidents"]
                ["/users" "Users"]]
    :dropdowns {:reports {:id "navdrop0"
                          :data-id "reports"

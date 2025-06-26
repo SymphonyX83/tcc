@@ -1,6 +1,7 @@
 (ns tcc.routes.proutes
   (:require
    [compojure.core :refer [defroutes GET POST]]
+   [tcc.handlers.admin.incidents.controller :as incidents-controller]
    [tcc.handlers.admin.oncall.controller :as oncall-controller]
    [tcc.handlers.admin.sources.controller :as sources-controller]
    [tcc.handlers.admin.detections.controller :as detections-controller]
@@ -12,6 +13,11 @@
    [tcc.handlers.users.controller :as users-dashboard]))
 
 (defroutes proutes
+  (GET "/admin/incidents" params [] (incidents-controller/incidents params))
+  (GET "/admin/incidents/add-form" params [] (incidents-controller/incidents-add-form params))
+  (GET "/admin/incidents/edit-form/:id" [id :as request] (incidents-controller/incidents-edit-form request id))
+  (POST "/admin/incidents/save" params [] (incidents-controller/incidents-save params))
+  (GET "/admin/incidents/delete/:id" [id :as request] (incidents-controller/incidents-delete request id))
   (GET "/admin/oncall" params [] (oncall-controller/oncall params))
   (GET "/admin/oncall/add-form" params [] (oncall-controller/oncall-add-form params))
   (GET "/admin/oncall/edit-form/:id" [id :as request] (oncall-controller/oncall-edit-form request id))
