@@ -1,4 +1,4 @@
-(ns tcc.handlers.admin.incidents.model
+(ns tcc.handlers.incidents.model
   (:require [tcc.models.crud :refer [Query db]]))
 
 (def get-incidents-sql
@@ -27,24 +27,5 @@
   []
   (Query db get-incidents-sql))
 
-(defn get-incidents-id
-  [id]
-  (first (Query db (str "SELECT * from incidents WHERE id=" id))))
-
-(defn groups-options
-  []
-  (Query db "SELECT id as value, name as label FROM groups where active = 'Yes' ORDER BY name"))
-
-(defn sources-options
-  []
-  (Query db "SELECT 
-             s.id as value, 
-             concat(d.name,' ',s.name) as label 
-             FROM sources s
-             join detections d on s.detection_id = d.id
-             ORDER BY s.name"))
-
 (comment
-  (sources-options)
-  (groups-options)
   (get-incidents))

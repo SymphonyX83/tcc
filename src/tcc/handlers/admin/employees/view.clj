@@ -1,12 +1,11 @@
 (ns tcc.handlers.admin.employees.view
-  (:require
-   [tcc.models.form :refer [build-field build-modal-buttons form]]
-   [tcc.models.grid :refer [build-grid]]))
+  (:require [tcc.models.form :refer [form build-field build-modal-buttons]]
+            [tcc.models.grid :refer [build-grid]]))
 
 (defn employees-view
   [title rows]
-  (let [labels ["Firstname" "Lastname" "Primary Phone" "Secondary Phone" "Manager"]
-        db-fields [:firstname :lastname :pphone :sphone :is_manager_formatted]
+  (let [labels ["Name" "Email" "Pphone" "Sphone"]
+        db-fields [:name :email :pphone :sphone]
         fields (apply array-map (interleave db-fields labels))
         table-id "employees_table"
         href "/admin/employees"
@@ -17,11 +16,12 @@
   [row]
   (list
    (build-field {:id "id" :type "hidden" :name "id" :value (:id row)})
-   (build-field {:label "Firstname" :type "text" :id "firstname" :name "firstname" :placeholder "Firstname here..." :required true :value (get row :firstname)})
-   (build-field {:label "Lastname" :type "text" :id "lastname" :name "lastname" :placeholder "Lastname here..." :required true :value (get row :lastname)})
-   (build-field {:label "Primary phone" :type "text" :id "pphone" :name "pphone" :placeholder "Pphone here..." :required true :value (get row :pphone)})
-   (build-field {:label "Secondary phone" :type "text" :id "sphone" :name "sphone" :placeholder "Sphone here..." :required false :value (get row :sphone)})
-   (build-field {:label "Is manager?" :type "select" :id "is_manager" :name "is_manager" :required true :value (get row :is_manager) :options [{:value "N" :label "No"} {:value "Y" :label "Yes"}]})))
+   (build-field {:label "Name" :type "text" :id "name" :name "name" :placeholder "Name here..." :required true :value (get row :name)})
+   (build-field {:label "Email" :type "email" :id "email" :name "email" :placeholder "Email here..." :required true :value (get row :email)})
+   (build-field {:label "Primary Phone<br><small>Format:xxx-xxx-xxxx</small>" :type "tel" :id "pphone" :name "pphone" :placeholder "Pphone here..." :required true :value (get row :pphone)
+                 :pattern "\\d{3}-\\d{3}-\\d{4}"})
+   (build-field {:label "Secondary Phone<br><small>Format:xxx-xxx-xxxx</small>" :type "tel" :id "sphone" :name "sphone" :placeholder "Sphone here..." :required true :value (get row :sphone)
+                 :pattern "\\d{3}-\\d{3}-\\d{4}"})))
 
 (defn employees-form-view
   [title row]

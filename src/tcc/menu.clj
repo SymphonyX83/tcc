@@ -4,18 +4,19 @@
   [["/reports/users" "Users"]])
 
 (def admin-items
-  [["/admin/users" "Users" "S"]
-   ["/admin/employees" "Employees" "S"]
-   ["/admin/locations" "Locations" "S"]
-   ["/admin/rgroups" "Resolution Groups" "S"]
-   ["/admin/detections" "Detection Methods" "S"]
-   ["/admin/sources" "Source of Incidents" "S"]
-   ["/admin/oncall" "Oncall Schedule" "S"]]) ; Only system users
+  [["/admin/employees" "Employees"]
+   ["/admin/groups" "Groups"]
+   ["/admin/oncall" "On Call"]
+   ["/admin/locations" "Locations"]
+   ["/admin/detections" "Detections"]
+   ["/admin/sources" "Sources"]
+   ["/admin/incidents" "Incidents"]
+   ["/admin/users" "Users" "S"]]) ; Only system users
 
 (def menu-config
   {:nav-links [["/" "Home"]
-               ["/admin/incidents" "Incidents"]
-               ["/users" "Users"]]
+               ["/oncall" "ON Call"]
+               ["/incidents" "Incidents"]]
    :dropdowns {:reports {:id "navdrop0"
                          :data-id "reports"
                          :label "Reports"

@@ -1,49 +1,49 @@
-(ns tcc.handlers.admin.employees.controller
+(ns tcc.handlers.admin.groups.controller
   (:require
-   [tcc.handlers.admin.employees.model :refer [get-employees get-employees-id]]
-   [tcc.handlers.admin.employees.view :refer [employees-view employees-form-view]]
+   [tcc.handlers.admin.groups.model :refer [get-groups get-groups-id]]
+   [tcc.handlers.admin.groups.view :refer [groups-view groups-form-view]]
    [tcc.layout :refer [application error-404]]
    [tcc.models.crud :refer [build-form-delete build-form-save]]
    [tcc.models.util :refer [get-session-id user-level]]
    [hiccup.core :refer [html]]))
 
-(defn employees
+(defn groups
   [request]
-  (let [title "Employees"
+  (let [title "Groups"
         ok (get-session-id request)
         js nil
-        rows (get-employees)
-        content (employees-view title rows)]
+        rows (get-groups)
+        content (groups-view title rows)]
     (if (= (user-level request) "S")
       (application request title ok js content)
       (application request title ok nil "Not authorized to access this item! (level 'S')"))))
 
-(defn employees-add-form
+(defn groups-add-form
   [_]
-  (let [title "New Employees"
+  (let [title "New Groups"
         row nil
-        content (employees-form-view title row)]
+        content (groups-form-view title row)]
     (html content)))
 
-(defn employees-edit-form
+(defn groups-edit-form
   [_ id]
-  (let [title "Edit Employees"
-        row (get-employees-id id)
-        content (employees-form-view title row)]
+  (let [title "Edit Groups"
+        row (get-groups-id id)
+        content (groups-form-view title row)]
     (html content)))
 
-(defn employees-save
+(defn groups-save
   [{params :params}]
-  (let [table "employees"
+  (let [table "groups"
         result (build-form-save params table)]
     (if result
       {:status 200 :headers {"Content-Type" "application/json"} :body "{\"ok\":true}"}
       {:status 500 :headers {"Content-Type" "application/json"} :body "{\"ok\":false}"})))
 
-(defn employees-delete
+(defn groups-delete
   [_ id]
-  (let [table "employees"
+  (let [table "groups"
         result (build-form-delete table id)]
     (if result
-      {:status 302 :headers {"Location" "/admin/employees"}}
-      (error-404 "Unable to process record!" "/admin/employees"))))
+      {:status 302 :headers {"Location" "/admin/groups"}}
+      (error-404 "Unable to process record!" "/admin/groups"))))

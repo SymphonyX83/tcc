@@ -1,4 +1,4 @@
-(ns tcc.handlers.admin.oncall.model
+(ns tcc.handlers.oncall.model
   (:require [tcc.models.crud :refer [Query db]]))
 
 (def get-oncall-sql
@@ -19,10 +19,5 @@
   []
   (Query db get-oncall-sql))
 
-(defn get-oncall-id
-  [id]
-  (first (Query db (str "select * from oncall WHERE id= " id))))
-
 (comment
-  (get-oncall)
-  (get-oncall-id 1))
+  (get-oncall))

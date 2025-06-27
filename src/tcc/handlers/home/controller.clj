@@ -4,7 +4,7 @@
    [clojure.string :as st]
    [tcc.handlers.home.model :refer [get-user get-users update-password]]
    [tcc.handlers.home.view :refer [change-password-view home-view
-                                   main-view]]
+                                         main-view]]
    [tcc.layout :refer [application error-404]]
    [tcc.models.util :refer [get-session-id]]
    [ring.util.response :refer [redirect]]))
@@ -16,7 +16,7 @@
         js nil
         content (if (> ok 0)
                   (home-view)
-                  [:h2.text-info.text-center "Welcome to the TCC Platform"])]
+                  [:h2.text-info.text-center "Welcome to the Home Page"])]
     (application request title ok js content)))
 
 (defn login

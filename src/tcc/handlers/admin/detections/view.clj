@@ -15,11 +15,9 @@
 (defn build-detections-fields
   [row]
   (list
-    (build-field {:id "id" :type "hidden" :name "id" :value (:id row)})
-    (build-field {:label "Name" :type "text" :id "name" :name "name" :placeholder "Name here..." :required false :value (get row :name)})
-    (build-field {:label "Description" :type "text" :id "description" :name "description" :placeholder "Description here..." :required false :value (get row :description)})
-    
-  ))
+   (build-field {:id "id" :type "hidden" :name "id" :value (:id row)})
+   (build-field {:label "Name" :type "text" :id "name" :name "name" :placeholder "Name here..." :required true :value (get row :name)})
+   (build-field {:label "Description" :type "text" :id "description" :name "description" :placeholder "Description here..." :required false :value (get row :description)})))
 
 (defn detections-form-view
   [title row]

@@ -1,12 +1,8 @@
 (ns tcc.handlers.admin.employees.model
-  (:require
-   [tcc.models.crud :refer [db Query]]))
+  (:require [tcc.models.crud :refer [Query db]]))
 
 (def get-employees-sql
-  (str "SELECT emp.*,
-        CASE WHEN emp.is_manager = 'Y' THEN 'YES' ELSE 'NO' END AS is_manager_formatted
-        FROM employees AS emp
-        ORDER BY emp.firstname, emp.lastname"))
+  (str "SELECT * FROM employees"))
 
 (defn get-employees
   []
@@ -15,6 +11,3 @@
 (defn get-employees-id
   [id]
   (first (Query db (str get-employees-sql " WHERE employees.id=" id))))
-
-(comment
-  (get-employees))

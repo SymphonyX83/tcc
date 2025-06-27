@@ -1,1 +1,1 @@
-DROP TABLE incidents;
+drop table incidents;

@@ -1,5 +1,5 @@
 (defproject sk "0.1.0"
-  :description "TCC Platform" ; Change me
+  :description "tcc" ; Change me
   :url "http://example.com/FIXME" ; Change me - optional
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
             :url "https://www.eclipse.org/legal/epl-2.0/"}
