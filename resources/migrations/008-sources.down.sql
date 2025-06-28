@@ -1,1 +1,1 @@
-drop table sources;
+DROP TABLE sources;

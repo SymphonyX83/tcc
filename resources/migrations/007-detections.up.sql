@@ -1,6 +1,5 @@
-CREATE TABLE `detections` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `description` text,
-  PRIMARY KEY (`id`)
-);
+CREATE TABLE detections (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    description TEXT
+)

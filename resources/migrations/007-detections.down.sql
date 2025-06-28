@@ -1,1 +1,1 @@
-drop table detections;
+DROP TABLE detections;
