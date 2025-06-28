@@ -1,6 +1,6 @@
 (ns tcc.handlers.admin.incidents.view
   (:require
-   [tcc.handlers.admin.incidents.model :refer [groups-options sources-options]]
+   [tcc.handlers.admin.incidents.model :refer [sources-options]]
    [tcc.models.form :refer [build-field build-modal-buttons form]]
    [tcc.models.grid :refer [build-grid]]
    [tcc.models.util :refer [get-options]]))
@@ -45,7 +45,7 @@
    (build-field {:label "Business impact" :type "text" :id "business_impact" :name "business_impact" :placeholder "Business impact here..." :required false :value (get row :business_impact)})
    (build-field {:label "Summary" :type "textarea" :rows "4" :id "summary" :name "summary" :placeholder "Summary here..." :required false :value (get row :summary)})
    (build-field {:label "Group" :type "select" :id "group_id" :name "group_id" :placeholder "Group id here..." :required true :value (get row :group_id)
-                 :options (groups-options)})
+                 :options (get-options "groups" "id" "name" :filter-field "active" :filter-value "Yes")})
    (build-field {:label "Bridge" :type "text" :id "bridge" :name "bridge" :placeholder "Bridge here..." :required false :value (get row :bridge)})
    (build-field {:label "Current status" :type "textarea" :rows "4" :id "current_status" :name "current_status" :placeholder "Current status here..." :required false :value (get row :current_status)})
    (build-field {:label "Source" :type "select" :id "source_id" :name "source_id" :placeholder "Source id here..." :required true :value (get row :source_id)

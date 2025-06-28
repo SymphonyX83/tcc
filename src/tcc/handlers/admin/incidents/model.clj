@@ -31,10 +31,6 @@
   [id]
   (first (Query db (str "SELECT * from incidents WHERE id=" id))))
 
-(defn groups-options
-  []
-  (Query db "SELECT id as value, name as label FROM groups where active = 'Yes' ORDER BY name"))
-
 (defn sources-options
   []
   (Query db "SELECT 
@@ -46,5 +42,4 @@
 
 (comment
   (sources-options)
-  (groups-options)
   (get-incidents))
